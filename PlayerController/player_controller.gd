@@ -4,7 +4,7 @@ class_name PlayerController
 @export var player_cam: PlayerCamera
 @export var aim_line: Line2D
 @export_category("Parameters")
-@export var SPEED := 100
+@export var SPEED := 50
 @export var ZOOM_SENS := 0.05
 
 var is_aim: bool = false

@@ -7,7 +7,7 @@ enum MODES { TARGET, TARGET_MOUSE_BLENDED, IDLE }
 @export var target: Node = null
 @export var mode: MODES = MODES.TARGET
 @export var MAX_DISTANCE: float = 500
-@export var SMOOTH_SPEED := 1.0
+@export var SMOOTH_SPEED := 0.6
 @export var CAMERA_DEADZONE_RADIUS := 30.0
 @export var MIN_ZOOM: float = 2.0
 @export var MAX_ZOOM: float = 4.0
