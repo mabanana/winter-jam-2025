@@ -10,4 +10,4 @@ script = ExtResource("1_4iab7")
 texture = ExtResource("2_4coum")
 hframes = 7
 vframes = 4
-frame = 10
+frame = 24
