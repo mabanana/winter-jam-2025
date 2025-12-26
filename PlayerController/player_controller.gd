@@ -3,8 +3,11 @@ class_name PlayerController
 
 @export var player_cam: PlayerCamera
 @export var aim_line: Line2D
+@export_category("Parameters")
+@export var SPEED := 100
+@export var ZOOM_SENS := 0.05
+
 var is_aim: bool = false
-var scroll_sensitivity: float = 1
 
 @warning_ignore("unused_parameter")
 func _process(delta):
@@ -15,22 +18,25 @@ func _process(delta):
 
 func _physics_process(delta):
 	var dir = Vector2(Input.get_axis("left", "right"), Input.get_axis("up", "down"))
-	position += dir * delta * 300
+	position += dir * delta * SPEED
+	player_cam.position -= dir * delta * SPEED
 
 func _input(event):
 	if event.is_action_pressed("aim"):
 		start_aim()
 	elif event.is_action_released("aim"):
 		end_aim()
-	
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_UP:
-		player_cam.change_zoom(0.05)
-	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-		player_cam.change_zoom(-0.05)
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			player_cam.change_zoom(ZOOM_SENS)
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			player_cam.change_zoom(-ZOOM_SENS)
 
 func start_aim():
+	player_cam.change_mode(PlayerCamera.MODES.TARGET_MOUSE_BLENDED)
 	is_aim = true
 func end_aim():
+	player_cam.change_mode(PlayerCamera.MODES.TARGET)
 	is_aim = false
 func show_aim():
 	var mouse_pos = get_viewport().get_mouse_position()

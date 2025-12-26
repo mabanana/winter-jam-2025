@@ -1,26 +1,32 @@
 extends Camera2D
 class_name PlayerCamera
 
-enum MODES { TARGET, TARGET_MOUSE_BLENDED }
+enum MODES { TARGET, TARGET_MOUSE_BLENDED, IDLE }
 
+@export var player: PlayerController
 @export var target: Node = null
-@export var mode: MODES = MODES.TARGET_MOUSE_BLENDED
+@export var mode: MODES = MODES.TARGET
 @export var MAX_DISTANCE: float = 500
-@export var SMOOTH_SPEED: float = 1
-@export var MIN_ZOOM: float = 0.5
-@export var MAX_ZOOM: float = 2.0
+@export var SMOOTH_SPEED := 1.0
+@export var CAMERA_DEADZONE_RADIUS := 30.0
+@export var MIN_ZOOM: float = 2.0
+@export var MAX_ZOOM: float = 4.0
+@export var DEFAULT_ZOOM: float = 3.0
 
 var target_position := Vector2.INF
 var fallback_target: Node = null
 
 func _ready():
-	fallback_target = target
+	fallback_target = player
+	zoom = Vector2.ONE * DEFAULT_ZOOM
 	
 	
 func _process(delta):
 	match(mode):
 		MODES.TARGET:
 			if target:
+				if (target.position - target.position).length() == 0:
+					change_mode(MODES.IDLE)
 				target_position = target.position
 		MODES.TARGET_MOUSE_BLENDED:
 			if target:
@@ -28,14 +34,15 @@ func _process(delta):
 				target_position = (target.position + mouse_pos)
 				target_position.x = clamp(target_position.x, -MAX_DISTANCE + target.position.x, MAX_DISTANCE + target.position.x)
 				target_position.y = clamp(target_position.y, -MAX_DISTANCE + target.position.y, MAX_DISTANCE + target.position.y)
-				
+		MODES.IDLE:
+			if target == player and position.length() > CAMERA_DEADZONE_RADIUS:
+				change_mode(MODES.TARGET)
+	
 	if target_position != Vector2.INF:
-		position = lerp(position, target_position, SMOOTH_SPEED * delta)
-		
-		
+		position = lerp(position, target_position - player.position, SMOOTH_SPEED * delta)
+
 func change_mode(new_mode: MODES) -> void:
 	mode = new_mode
-	
 	
 func change_target(new_target: Node) -> void:
 	if new_target:
