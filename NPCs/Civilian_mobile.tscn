@@ -1,10 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://bkwjh1vnoftxp"]
 
-[ext_resource type="Script" uid="uid://b1kwsqmroyrtv" path="res://NPCs/civilian.gd" id="1_4iab7"]
+[ext_resource type="Script" uid="uid://b1kwsqmroyrtv" path="res://NPCs/civilian_mobile.gd" id="1_4iab7"]
 [ext_resource type="Texture2D" uid="uid://dsh0smq3vgfd1" path="res://Assets/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Character.png" id="2_4coum"]
 
-[node name="Civilian" type="Node2D"]
+[node name="Civilian" type="Node2D" node_paths=PackedStringArray("sprite2D")]
 script = ExtResource("1_4iab7")
+sprite2D = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_4coum")

@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=4 uid="uid://pj8x2nyfefch"]
+[gd_scene load_steps=11 format=4 uid="uid://pj8x2nyfefch"]
 
 [ext_resource type="Texture2D" uid="uid://dea4xdv2q44d" path="res://Assets/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset.png" id="1_iho50"]
 [ext_resource type="PackedScene" uid="uid://bruv7p24q1qyf" path="res://PlayerController/Player.tscn" id="2_3wh16"]
 [ext_resource type="Texture2D" uid="uid://dsh0smq3vgfd1" path="res://Assets/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Character.png" id="2_eu8vo"]
-[ext_resource type="PackedScene" uid="uid://bkwjh1vnoftxp" path="res://NPCs/Civilian.tscn" id="4_5yd65"]
+[ext_resource type="PackedScene" uid="uid://bkwjh1vnoftxp" path="res://NPCs/Civilian_mobile.tscn" id="4_5yd65"]
+[ext_resource type="Script" uid="uid://b7kk4ysy0tth3" path="res://levels/path_follow_2d.gd" id="4_y0s4v"]
+[ext_resource type="PackedScene" uid="uid://buhb5ncs0urnm" path="res://NPCs/Civilian_static.tscn" id="5_5yd65"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3wh16"]
 texture = ExtResource("1_iho50")
@@ -175,9 +177,9 @@ sources/1 = SubResource("TileSetAtlasSource_y0s4v")
 
 [sub_resource type="Curve2D" id="Curve2D_eu8vo"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 114, 155, 0, 0, 0, 0, 119.224976, 158.33366, 0, 0, 0, 0, 177, 201, 0, 0, 0, 0, 196, 124, 0, 0, 0, 0, 149, 132, 0, 0, 0, 0, 114, 155)
+"points": PackedVector2Array(0, 0, 0, 0, 157, 161, 0, 0, 0, 0, 119.224976, 158.33366, 0, 0, 0, 0, 177, 201, 0, 0, 0, 0, 196, 124, 0, 0, 0, 0, 173, 129, 0, 0, 0, 0, 149, 132, -25.953922, -5.7932863, 25.953922, 5.7932863, 164, 152, 0, 0, 0, 0, 157, 161)
 }
-point_count = 6
+point_count = 8
 
 [node name="LevelTest" type="Node2D"]
 
@@ -196,10 +198,13 @@ zoom = Vector2(3, 3)
 curve = SubResource("Curve2D_eu8vo")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2(114, 155)
-rotation = 1.6097376
+position = Vector2(119.313965, 158.44574)
+progress = 38.20023
 rotates = false
+script = ExtResource("4_y0s4v")
 
-[node name="Civilian" parent="Path2D/PathFollow2D" node_paths=PackedStringArray("pathFollow2D") instance=ExtResource("4_5yd65")]
-rotation = -1.5707964
+[node name="CivilianMobile" parent="Path2D/PathFollow2D" node_paths=PackedStringArray("pathFollow2D") instance=ExtResource("4_5yd65")]
 pathFollow2D = NodePath("..")
+
+[node name="CivilianStatic" parent="." instance=ExtResource("5_5yd65")]
+position = Vector2(213, 107)
