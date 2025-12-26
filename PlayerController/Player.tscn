@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bruv7p24q1qyf"]
+
+[ext_resource type="Script" uid="uid://0ujci8rggd8q" path="res://PlayerController/player_controller.gd" id="1_g1nwm"]
+[ext_resource type="Texture2D" uid="uid://cv8li5s1h1cbe" path="res://icon.svg" id="2_c4fll"]
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("aim_line")]
+script = ExtResource("1_g1nwm")
+aim_line = NodePath("AimLine")
+
+[node name="AimLine" type="Line2D" parent="."]
+texture = ExtResource("2_c4fll")
+texture_mode = 2
