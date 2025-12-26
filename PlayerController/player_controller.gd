@@ -5,14 +5,14 @@ class_name PlayerController
 var is_aim: bool = false
 
 func _ready():
-	pass # Replace with function body.
+	pass
 
+@warning_ignore("unused_parameter")
 func _process(delta):
 	if is_aim:
 		show_aim()
 	else:
 		aim_line.clear_points()
-
 
 func _input(event):
 	if event.is_action_pressed("aim"):
