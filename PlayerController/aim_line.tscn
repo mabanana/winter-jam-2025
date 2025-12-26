@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxsf3g4dt3nbf"]
+
+[ext_resource type="Texture2D" uid="uid://cv8li5s1h1cbe" path="res://icon.svg" id="1_lx8kq"]
+
+[node name="AimLine" type="Line2D"]
+texture = ExtResource("1_lx8kq")
+texture_mode = 2
