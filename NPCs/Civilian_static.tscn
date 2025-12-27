@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://buhb5ncs0urnm"]
+
+[ext_resource type="Texture2D" uid="uid://dsh0smq3vgfd1" path="res://Assets/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Character.png" id="1_mlkcw"]
+
+[node name="CivilianStatic" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_mlkcw")
+hframes = 7
+vframes = 4
+frame = 23
