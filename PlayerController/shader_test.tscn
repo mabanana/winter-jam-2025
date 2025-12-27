@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://b78hb1tyygv5x"]
+
+[ext_resource type="Material" uid="uid://dgx0kv6fdsq70" path="res://PlayerController/sound_travel_shader.tres" id="1_l2x7w"]
+
+[sub_resource type="Gradient" id="Gradient_5wjpa"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_13uwi"]
+gradient = SubResource("Gradient_5wjpa")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("1_l2x7w")
+position = Vector2(94.5, 54)
+scale = Vector2(3.953125, 2.6875)
+texture = SubResource("GradientTexture2D_13uwi")

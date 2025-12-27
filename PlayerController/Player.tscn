@@ -1,16 +1,25 @@
-[gd_scene load_steps=8 format=3 uid="uid://bruv7p24q1qyf"]
+[gd_scene load_steps=11 format=3 uid="uid://bruv7p24q1qyf"]
 
 [ext_resource type="Script" uid="uid://0ujci8rggd8q" path="res://PlayerController/player_controller.gd" id="1_g1nwm"]
 [ext_resource type="Script" uid="uid://bwqujnwpmc1p7" path="res://PlayerController/player_camera.gd" id="2_5i1rd"]
 [ext_resource type="Texture2D" uid="uid://cv8li5s1h1cbe" path="res://icon.svg" id="2_c4fll"]
 [ext_resource type="PackedScene" uid="uid://bxsf3g4dt3nbf" path="res://PlayerController/aim_line.tscn" id="3_ves0u"]
 [ext_resource type="Script" uid="uid://os8xrebrlv6b" path="res://PlayerController/sound_emitter.gd" id="5_c7efg"]
+[ext_resource type="Material" uid="uid://dgx0kv6fdsq70" path="res://PlayerController/sound_travel_shader.tres" id="6_1vfqo"]
 
 [sub_resource type="Curve" id="Curve_5i1rd"]
 _data = [Vector2(0.27173913, 0.44943827), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_5i1rd"]
+
+[sub_resource type="Curve" id="Curve_c7efg"]
+_limits = [0.0, 20.0, 0.0, 1.0]
+_data = [Vector2(0, 0.1685394), 0.0, 0.0, 0, 0, Vector2(0.49456525, 2.0224724), 5.3352656, 5.3352656, 0, 0, Vector2(1, 4.719103), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_c7efg"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("player_cam", "aim_line")]
 script = ExtResource("1_g1nwm")
@@ -23,6 +32,7 @@ position_smoothing_speed = 1.0
 script = ExtResource("2_5i1rd")
 player = NodePath("..")
 target = NodePath("..")
+MIN_ZOOM = 1.0
 
 [node name="Icon" type="Sprite2D" parent="."]
 scale = Vector2(0.125, 0.125)
@@ -33,10 +43,14 @@ width = 2.0
 width_curve = SubResource("Curve_5i1rd")
 gradient = SubResource("Gradient_5i1rd")
 
-[node name="SoundEmitter" type="Node" parent="." node_paths=PackedStringArray("raycast")]
+[node name="SoundEmitter" type="Node" parent="." node_paths=PackedStringArray("raycast", "source")]
 script = ExtResource("5_c7efg")
-raycast = NodePath("RayCast2D")
+raycast = NodePath("../RayCast2D")
+num_rays = 10
+source = NodePath("..")
+curve = SubResource("Curve_c7efg")
+gradient = SubResource("Gradient_c7efg")
+shader = ExtResource("6_1vfqo")
 
-[node name="RayCast2D" type="RayCast2D" parent="SoundEmitter"]
+[node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = false
-exclude_parent = false

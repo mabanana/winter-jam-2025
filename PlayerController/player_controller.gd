@@ -6,6 +6,7 @@ class_name PlayerController
 @export_category("Parameters")
 @export var SPEED := 50
 @export var ZOOM_SENS := 0.05
+@export var loudness := 100.0
 
 var is_aim: bool = false
 
@@ -31,6 +32,8 @@ func _input(event):
 			player_cam.change_zoom(ZOOM_SENS)
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			player_cam.change_zoom(-ZOOM_SENS)
+		elif event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+			$SoundEmitter.draw_sound_polygon(loudness)
 
 func start_aim():
 	player_cam.change_mode(PlayerCamera.MODES.TARGET_MOUSE_BLENDED)

@@ -1,0 +1,25 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://dgx0kv6fdsq70"]
+
+[ext_resource type="Shader" uid="uid://bwb1brxdgdn6a" path="res://PlayerController/Player.gdshader" id="1_gv0a2"]
+
+[sub_resource type="Curve" id="Curve_gv0a2"]
+resource_local_to_scene = true
+_data = [Vector2(0.49305558, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CurveTexture" id="CurveTexture_thjmp"]
+resource_local_to_scene = true
+curve = SubResource("Curve_gv0a2")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1vfqo"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_drfae"]
+noise = SubResource("FastNoiseLite_1vfqo")
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_gv0a2")
+shader_parameter/noise = SubResource("NoiseTexture2D_drfae")
+shader_parameter/noisiness = 0.8
+shader_parameter/band_width = 0.5
+shader_parameter/color_texture = SubResource("CurveTexture_thjmp")
