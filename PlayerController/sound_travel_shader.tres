@@ -24,4 +24,4 @@ shader_parameter/noise = SubResource("NoiseTexture2D_drfae")
 shader_parameter/noisiness = 0.8
 shader_parameter/band_width = 0.5
 shader_parameter/color_texture = SubResource("CurveTexture_thjmp")
-shader_parameter/progress = 0.0
+shader_parameter/progress = 1.025

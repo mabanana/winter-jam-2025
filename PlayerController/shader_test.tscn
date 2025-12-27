@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://b78hb1tyygv5x"]
+[gd_scene load_steps=9 format=3 uid="uid://b78hb1tyygv5x"]
 
 [ext_resource type="Material" uid="uid://dgx0kv6fdsq70" path="res://PlayerController/sound_travel_shader.tres" id="1_l2x7w"]
 
@@ -7,6 +7,22 @@
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_13uwi"]
 gradient = SubResource("Gradient_5wjpa")
 
+[sub_resource type="Curve" id="Curve_l2x7w"]
+_limits = [0.0, 5.0, 0.0, 1.0]
+_data = [Vector2(0.016304344, 0.34831464), 0.0, 0.0, 0, 0, Vector2(1, 5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_13uwi"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a2cfa"]
+gradient = SubResource("Gradient_13uwi")
+
+[sub_resource type="Gradient" id="Gradient_lsc4h"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yf1nl"]
+gradient = SubResource("Gradient_lsc4h")
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -14,3 +30,16 @@ material = ExtResource("1_l2x7w")
 position = Vector2(94.5, 54)
 scale = Vector2(3.953125, 2.6875)
 texture = SubResource("GradientTexture2D_13uwi")
+
+[node name="Line2D" type="Line2D" parent="."]
+material = ExtResource("1_l2x7w")
+points = PackedVector2Array(126, 224, 337, 218, 439, 292, 516, 218)
+width_curve = SubResource("Curve_l2x7w")
+texture = SubResource("GradientTexture1D_a2cfa")
+texture_mode = 1
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+material = ExtResource("1_l2x7w")
+texture = SubResource("GradientTexture2D_yf1nl")
+polygon = PackedVector2Array(493, 66, 483, 130, 674, 179, 737, 105, 652, 25)
+uv = PackedVector2Array(-0.4745617, 0.622386, -0.3679186, 63.91551, 27.053955, 65.69727, 83.234116, 38.82956, 34.924927, 1.080421)

@@ -4,11 +4,13 @@ class_name SoundEmitter
 @export var raycast: RayCast2D
 @export var num_rays := 360
 @export var bounce_dampen := 5.0
+@export var sound_emission_duration := 1.5
 @export var source: Node2D
 @export var scene: Node2D
 @export var curve: Curve
 @export var gradient: Gradient
 @export var shader: ShaderMaterial
+
 
 func _ready():
 	scene = source.get_parent()
@@ -35,23 +37,35 @@ func emit_sound(length: float):
 		var point_array: PackedVector2Array = cast_bouncing_ray(
 			Vector2.RIGHT.rotated(deg_to_rad(degrees)), 
 			length)
-		var line2D = Line2D.new()
-		line2D.width_curve = curve
-		line2D.gradient = gradient
-		line2D.material = shader.duplicate()
-		var tween := create_tween()
-		tween.set_trans(Tween.TRANS_QUAD)
-		tween.tween_method(func(progress):
-			line2D.material.set_shader_parameter("progress", progress)
-			, PI/2, PI, 1.5)
-		tween.play()
 		
-		var line_points := point_array
-		line_points.insert(0, source.global_position)
-		line2D.default_color = Color(1.0, 1.0, 1.0, 0.2)
-		line2D.points = line_points
-		scene.add_child(line2D)
-		get_tree().create_timer(1.5).timeout.connect(line2D.queue_free)
+		# Make 3 waves and free at the same time
+		for i in range(3):
+			var wave_delay = i*0.33
+			get_tree().create_timer(wave_delay).timeout.connect(func():
+				var line2D = Line2D.new()
+				line2D.width_curve = curve
+				line2D.gradient = gradient
+				line2D.material = shader.duplicate()
+				var tween := create_tween()
+				tween.set_ease(Tween.EASE_IN_OUT)
+				tween.set_trans(Tween.TRANS_SINE)
+				tween.tween_method(func(progress):
+					line2D.material.set_shader_parameter("progress", progress)
+					, PI/2, PI, sound_emission_duration)
+				
+				tween.play()
+				get_tree().create_timer(
+					sound_emission_duration + 1 - wave_delay).timeout.connect(line2D.queue_free)
+				
+				var line_points := point_array
+				line_points.insert(0, source.global_position)
+				line2D.default_color = Color(1.0, 1.0, 1.0, 0.2)
+				line2D.points = line_points
+				line2D.texture_mode = Line2D.LINE_TEXTURE_STRETCH
+				scene.add_child(line2D)
+				)
+			
+		
 		if point_array:
 			polygon_array.append_array(point_array)
 	return Geometry2D.convex_hull(polygon_array)
