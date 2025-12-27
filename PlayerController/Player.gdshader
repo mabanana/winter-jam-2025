@@ -4,6 +4,7 @@ uniform sampler2D noise;
 uniform float noisiness = 0.8;
 uniform float band_width = 0.4;
 uniform sampler2D color_texture;
+uniform float progress;
 
 void vertex() {
 	// Called for every vertex the material is visible on.
@@ -11,7 +12,7 @@ void vertex() {
 
 void fragment() {
 	COLOR *= mix(texture(noise, UV).r, COLOR.r, noisiness);
-	COLOR.a = band_width - abs(COLOR.r - sin(TIME)) * (1.0 / band_width);
+	COLOR.a = band_width - abs(COLOR.r - sin(progress)) * (1.0 / band_width);
 	COLOR.rgb = texture(color_texture, UV).rgb;
 }
 

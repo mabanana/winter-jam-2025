@@ -38,7 +38,14 @@ func emit_sound(length: float):
 		var line2D = Line2D.new()
 		line2D.width_curve = curve
 		line2D.gradient = gradient
-		line2D.material = shader
+		line2D.material = shader.duplicate()
+		var tween := create_tween()
+		tween.set_trans(Tween.TRANS_QUAD)
+		tween.tween_method(func(progress):
+			line2D.material.set_shader_parameter("progress", progress)
+			, PI/2, PI, 1.5)
+		tween.play()
+		
 		var line_points := point_array
 		line_points.insert(0, source.global_position)
 		line2D.default_color = Color(1.0, 1.0, 1.0, 0.2)
