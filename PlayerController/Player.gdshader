@@ -11,9 +11,11 @@ void vertex() {
 }
 
 void fragment() {
-	COLOR *= mix(texture(noise, UV).r, COLOR.r, noisiness);
+	float time = TIME;
+	vec2 shiftedUV = vec2(UV.x * (time - floor(time)), UV.y);
+	COLOR *= mix(texture(noise, shiftedUV).r, COLOR.r, noisiness);
 	COLOR.a = band_width - abs(COLOR.r - sin(progress)) * (1.0 / band_width);
-	COLOR.rgb = texture(color_texture, UV).rgb;
+	COLOR.rgb = texture(color_texture, shiftedUV).rgb;
 }
 
 //void light() {
