@@ -21,10 +21,11 @@ point_count = 3
 [sub_resource type="Gradient" id="Gradient_c7efg"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("player_cam", "aim_line")]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("player_cam", "aim_line", "sound_emitter")]
 script = ExtResource("1_g1nwm")
 player_cam = NodePath("PlayerCamera")
 aim_line = NodePath("AimLine")
+sound_emitter = NodePath("SoundEmitter")
 
 [node name="PlayerCamera" type="Camera2D" parent="." node_paths=PackedStringArray("player", "target")]
 limit_smoothed = true
