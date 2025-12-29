@@ -11,6 +11,7 @@ class_name SoundEmitter
 @export var gradient: Gradient
 @export var shader: ShaderMaterial
 
+var sound_heard_queue = []
 
 func _ready():
 	scene = source.get_parent()
@@ -32,6 +33,7 @@ func emit_sound(length: float):
 	var polygon_array: PackedVector2Array = []
 	@warning_ignore("integer_division")
 	raycast.clear_exceptions()
+	sound_heard_queue = []
 	for ray in range(0, num_rays):
 		raycast.position = Vector2.ZERO
 		var degrees = 360.0 / num_rays * ray
@@ -56,7 +58,11 @@ func emit_sound(length: float):
 				
 				tween.play()
 				get_tree().create_timer(
-					sound_emission_duration + 1 - wave_delay).timeout.connect(line2D.queue_free)
+					sound_emission_duration + 1 - wave_delay).timeout.connect(
+						func():
+							for context in sound_heard_queue:
+								Signals.sound_heard.emit(context)
+							line2D.queue_free())
 				
 				var line_points := point_array
 				line_points.insert(0, source.global_position)
@@ -65,10 +71,10 @@ func emit_sound(length: float):
 				line2D.texture_mode = Line2D.LINE_TEXTURE_STRETCH
 				scene.add_child(line2D)
 				)
-			
-		
 		if point_array:
 			polygon_array.append_array(point_array)
+	
+	
 	return Geometry2D.convex_hull(polygon_array)
 
 func cast_bouncing_ray(
@@ -96,6 +102,12 @@ func cast_bouncing_ray(
 		collision_points.append(new_collision_point)
 		var distance = (collision_point - new_collision_point).length()
 		raycast.add_exception(collider)
+		sound_heard_queue.append(
+			{
+				"position": new_collision_point,
+				"distance": distance,
+				"listener": collider,
+			})
 		print("heard by %s from %sm away." % [
 			collider.character.name, 
 			snapped(distance / 10, 0.1)
