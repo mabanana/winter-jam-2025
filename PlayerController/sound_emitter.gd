@@ -51,7 +51,7 @@ func emit_sound(length: float):
 				tween.set_trans(Tween.TRANS_SINE)
 				tween.tween_method(func(progress):
 					line2D.material.set_shader_parameter("progress", progress)
-					, PI/2, PI, sound_emission_duration)
+					, PI/2, 2.8, sound_emission_duration)
 				
 				tween.play()
 				get_tree().create_timer(
