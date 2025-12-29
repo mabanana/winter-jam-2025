@@ -212,3 +212,4 @@ position = Vector2(213, 107)
 
 [node name="ListenerComponent" parent="CivilianStatic" node_paths=PackedStringArray("character") instance=ExtResource("7_tt56a")]
 character = NodePath("..")
+arrow_offset = Vector2(0, -7.225)

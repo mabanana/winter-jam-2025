@@ -1,13 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://8pj8vf4bauhp"]
+[gd_scene load_steps=4 format=3 uid="uid://8pj8vf4bauhp"]
 
 [ext_resource type="Script" uid="uid://bxre2qa484fvh" path="res://NPCs/listener_component.gd" id="1_c5iw8"]
+[ext_resource type="PackedScene" uid="uid://bkw657d6jh1bg" path="res://NPCs/arrow_notif.tscn" id="2_o6a5j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sop0g"]
 size = Vector2(14, 20)
 
-[node name="ListenerComponent" type="Area2D" node_paths=PackedStringArray("character")]
+[node name="ListenerComponent" type="Area2D" node_paths=PackedStringArray("arrow")]
 script = ExtResource("1_c5iw8")
-character = NodePath("")
+arrow = NodePath("ArrowNotif")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_sop0g")
+
+[node name="ArrowNotif" parent="." instance=ExtResource("2_o6a5j")]
+position = Vector2(0, -8)
+frame_progress = 0.9318761
