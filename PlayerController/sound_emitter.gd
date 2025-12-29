@@ -31,6 +31,7 @@ func draw_sound_polygon(length: float):
 func emit_sound(length: float):
 	var polygon_array: PackedVector2Array = []
 	@warning_ignore("integer_division")
+	raycast.clear_exceptions()
 	for ray in range(0, num_rays):
 		raycast.position = Vector2.ZERO
 		var degrees = 360.0 / num_rays * ray
@@ -90,6 +91,16 @@ func cast_bouncing_ray(
 	if not collider:
 		collision_points.append(raycast.target_position + collision_point)
 		return collision_points
+	elif collider is ListenerComponent:
+		var new_collision_point = raycast.get_collision_point()
+		collision_points.append(new_collision_point)
+		var distance = (collision_point - new_collision_point).length()
+		raycast.add_exception(collider)
+		print("heard by %s from %sm away." % [
+			collider.character.name, 
+			snapped(distance / 10, 0.1)
+			])
+		return cast_bouncing_ray(direction, length - distance, collision_points)
 	# elif collider is a listener
 		# 
 	else:

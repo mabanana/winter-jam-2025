@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://8pj8vf4bauhp"]
+
+[ext_resource type="Script" uid="uid://bxre2qa484fvh" path="res://NPCs/listener_component.gd" id="1_c5iw8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sop0g"]
+size = Vector2(14, 20)
+
+[node name="ListenerComponent" type="Area2D" node_paths=PackedStringArray("character")]
+script = ExtResource("1_c5iw8")
+character = NodePath("")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_sop0g")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://pj8x2nyfefch"]
+[gd_scene load_steps=12 format=4 uid="uid://pj8x2nyfefch"]
 
 [ext_resource type="Texture2D" uid="uid://dea4xdv2q44d" path="res://Assets/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset.png" id="1_iho50"]
 [ext_resource type="PackedScene" uid="uid://bruv7p24q1qyf" path="res://PlayerController/Player.tscn" id="2_3wh16"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bkwjh1vnoftxp" path="res://NPCs/Civilian_mobile.tscn" id="4_5yd65"]
 [ext_resource type="Script" uid="uid://b7kk4ysy0tth3" path="res://levels/path_follow_2d.gd" id="4_y0s4v"]
 [ext_resource type="PackedScene" uid="uid://buhb5ncs0urnm" path="res://NPCs/Civilian_static.tscn" id="5_5yd65"]
+[ext_resource type="PackedScene" uid="uid://8pj8vf4bauhp" path="res://NPCs/listener_component.tscn" id="7_tt56a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3wh16"]
 texture = ExtResource("1_iho50")
@@ -208,3 +209,6 @@ pathFollow2D = NodePath("..")
 
 [node name="CivilianStatic" parent="." instance=ExtResource("5_5yd65")]
 position = Vector2(213, 107)
+
+[node name="ListenerComponent" parent="CivilianStatic" node_paths=PackedStringArray("character") instance=ExtResource("7_tt56a")]
+character = NodePath("..")
